@@ -1,0 +1,8 @@
+mysql-connector-python
+pandas
+beautifulsoup4
+requests
+streamlit
+scikit-learn
+matplotlib
+numpy
