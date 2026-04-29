@@ -1,4 +1,4 @@
-from database_connection import get_connection
+import os
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -13,18 +13,9 @@ st.title("IPL 2026 — Data Analytics Dashboard")
 
 @st.cache_data
 def load_data():
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT pos, team, grp, pld, w, l, pts, nrr, win_pct, nrr_tier, form_label, qualification FROM gold.team_performance")
-    teams = pd.DataFrame(cursor.fetchall(),
-        columns=['pos','team','grp','pld','w','l','pts','nrr','win_pct','nrr_tier','form_label','qualification'])
-
-    cursor.execute("SELECT player, team, stat_type, stat_value, rank_pos, performance_label FROM gold.player_leaderboard")
-    players = pd.DataFrame(cursor.fetchall(),
-        columns=['player','team','stat_type','stat_value','rank_pos','performance_label'])
-
-    conn.close()
+    csv_dir = os.path.dirname(os.path.abspath(__file__))
+    teams = pd.read_csv(os.path.join(csv_dir, "team_performance.csv"))
+    players = pd.read_csv(os.path.join(csv_dir, "player_leaderboard.csv"))
     return teams, players
 
 teams, players = load_data()

@@ -151,4 +151,9 @@ if __name__ == "__main__":
 
     cursor.close()
     conn.close()
-    print("\nGold layer transformation complete.")
+
+    team_perf.to_csv("team_performance.csv", index=False)
+    player_lb.to_csv("player_leaderboard.csv", index=False)
+    match_sum.to_csv("match_summary.csv", index=False)
+    print("\nExported Gold layer CSVs for Streamlit Cloud deployment.")
+    print("Gold layer transformation complete.")
